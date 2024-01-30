@@ -25,6 +25,7 @@ namespace TrackerLibrary.DataAccess.TextHelpers
             return File.ReadAllLines(file).ToList();
         }
 
+        #region PrizeData 
         public static List<PrizeModel> ConvertToPrizeModels(this List<string> lines)
         {
             List <PrizeModel> output = new List<PrizeModel> ();
@@ -54,5 +55,39 @@ namespace TrackerLibrary.DataAccess.TextHelpers
             }
             File.WriteAllLines(fileName.FullFilePath(), output);
         }
+        #endregion
+
+        #region PeopleData 
+        public static List<PersonModel> ConvertToPersonModels(this List<string> lines)
+        {
+            List<PersonModel> output = new List<PersonModel>();
+
+            foreach (string line in lines)
+            {
+                string[] cols = line.Split(',');
+
+                PersonModel personModel = new PersonModel();
+                personModel.Id = int.Parse(cols[0]);
+                personModel.FirstName = cols[1];
+                personModel.LastName = cols[2];
+                personModel.EmailAddress = cols[3];
+                personModel.CellPhoneNumber = cols[4];
+
+                output.Add(personModel);
+            }
+            return output;
+        }
+
+        public static void SaveToPeopleFile(this List<PersonModel> models, string fileName)
+        {
+            List<string> output = new List<string>();
+
+            foreach(PersonModel personModel in models)
+            {
+                output.Add($"{personModel.Id},{personModel.FirstName},{personModel.LastName},{personModel.EmailAddress},{personModel.CellPhoneNumber}");
+            }
+            File.WriteAllLines(fileName.FullFilePath(), output);
+        }
+        #endregion
     }
 }

@@ -35,6 +35,11 @@ namespace TrackerLibrary.Models
         /// </summary>
         public string CellPhoneNumber { get; set; }
 
+        public PersonModel()
+        {
+
+        }
+
         public PersonModel(string firstName, string lastName, string email, string cellphoneNumber ) 
         {
             this.FirstName = firstName;
