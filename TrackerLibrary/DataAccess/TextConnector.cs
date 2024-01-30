@@ -57,5 +57,10 @@ namespace TrackerLibrary.DataAccess
             prizes.SaveToPrizesFile(PrizesFile);
             return prizeModel;
         }
+
+        public List<PersonModel> GetPerson_All()
+        {
+            return PeopleFile.FullFilePath().LoadFile().ConvertToPersonModels();
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,7 +13,6 @@ namespace TrackerLibrary.DataAccess
 {
     public class SqlConnector : IDataConnection
     {
-
         /// <summary>
         /// Saves a new Person to the Database
         /// </summary>
@@ -60,6 +60,16 @@ namespace TrackerLibrary.DataAccess
 
                 return prizeModel;
             }
-        }        
+        }
+
+        public List<PersonModel> GetPerson_All()
+        {
+            List<PersonModel> output;
+            using (IDbConnection conn = new System.Data.SqlClient.SqlConnection(GlobalConfig.cnnstring("Tournaments")))
+            {
+                output = conn.Query<PersonModel>("dbo.spPeople_GetALL").ToList();
+            }
+            return output;
+        }
     }
 }
