@@ -47,7 +47,12 @@ namespace TournamentTrackerT
 
         private void createTeamButton_Click(object sender, EventArgs e)
         {
-            //TODO: Create Team Button Event
+            TeamModel teamModel = new TeamModel();
+            teamModel.TeamName = teamNameValue.Text;
+            teamModel.TeamMembers = selectedTeamMembers;
+
+            teamModel = GlobalConfig.connection.CreateTeam(teamModel);
+            //TODO: If we aren't closing this form after creation then reset it.
         }
 
         private bool ValidateForm()

@@ -89,5 +89,54 @@ namespace TrackerLibrary.DataAccess.TextHelpers
             File.WriteAllLines(fileName.FullFilePath(), output);
         }
         #endregion
+
+        public static List<TeamModel> ConvertToTeamModels(this List<string> lines, string peopleFileName)
+        {
+            List<TeamModel> output = new List<TeamModel>();
+            List<PersonModel> personModel = peopleFileName.FullFilePath().LoadFile().ConvertToPersonModels();
+            foreach (string line in lines)
+            {
+                string[] cols = line.Split(',');
+
+                TeamModel t = new TeamModel();
+                t.Id = int.Parse(cols[0]);
+                t.TeamName = cols[1];
+                string[] personIds = cols[2].Split('|');
+
+                foreach(string id in personIds)
+                {
+                    t.TeamMembers.Add(personModel.Where(x => x.Id == int.Parse(id)).First());
+                }
+                output.Add(t);
+            }
+            return output;
+        }
+
+        public static void SaveToTeamsFile(this List<TeamModel> teams, string fileName)
+        {
+            List<String> output = new List<string>();
+
+            foreach (TeamModel team in teams)
+            {
+                output.Add($"{ team.Id }, { team.TeamName }, { ConvertPeopleListToString(team.TeamMembers) }");
+            }
+            File.WriteAllLines(fileName.FullFilePath(), output);
+        }
+
+        public static string ConvertPeopleListToString(this List<PersonModel> people)
+        {
+            String output =  string.Empty;
+            if(people.Count == 0)
+            {
+                return "";
+            }
+            foreach(PersonModel p in people)
+            {
+                output += $"{p.Id}|";
+            }
+            output = output.Substring(0, output.Length - 1);
+
+            return output;
+        }
     }
 }
