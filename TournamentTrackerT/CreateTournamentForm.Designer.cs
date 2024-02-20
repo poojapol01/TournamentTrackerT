@@ -147,6 +147,7 @@
             this.addTeamButton.TabIndex = 16;
             this.addTeamButton.Text = "Add Team";
             this.addTeamButton.UseVisualStyleBackColor = true;
+            this.addTeamButton.Click += new System.EventHandler(this.addTeamButton_Click);
             // 
             // createPrizeButton
             // 
@@ -163,6 +164,7 @@
             this.createPrizeButton.TabIndex = 17;
             this.createPrizeButton.Text = "Create Prize";
             this.createPrizeButton.UseVisualStyleBackColor = true;
+            this.createPrizeButton.Click += new System.EventHandler(this.createPrizeButton_Click);
             // 
             // tournamentTeamsListBox
             // 
@@ -202,6 +204,7 @@
             this.removeSelectedPlayersButton.TabIndex = 20;
             this.removeSelectedPlayersButton.Text = "Remove Selected";
             this.removeSelectedPlayersButton.UseVisualStyleBackColor = true;
+            this.removeSelectedPlayersButton.Click += new System.EventHandler(this.removeSelectedPlayersButton_Click);
             // 
             // removeSelectedPrizesButton
             // 
@@ -218,6 +221,7 @@
             this.removeSelectedPrizesButton.TabIndex = 23;
             this.removeSelectedPrizesButton.Text = "Remove Selected";
             this.removeSelectedPrizesButton.UseVisualStyleBackColor = true;
+            this.removeSelectedPrizesButton.Click += new System.EventHandler(this.removeSelectedPrizesButton_Click);
             // 
             // prizesLabel
             // 
