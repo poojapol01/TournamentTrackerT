@@ -12,7 +12,7 @@ using TrackerLibrary.Models;
 
 namespace TournamentTrackerT
 {
-    public partial class CreateTournamentForm : Form, IPrizeRequester
+    public partial class CreateTournamentForm : Form, IPrizeRequester, ITeamRequester
     {
         List<TeamModel> availableTeams = GlobalConfig.connection.GetTeams_All();
         List<TeamModel> selectedTeams = new List<TeamModel> ();
@@ -62,8 +62,8 @@ namespace TournamentTrackerT
 
             if (t != null)
             {
-                availableTeams.Add(t);
                 selectedTeams.Remove(t);
+                availableTeams.Add(t);
 
                 WireUpLists();
             }
@@ -91,6 +91,18 @@ namespace TournamentTrackerT
                 selectedPrizes.Remove(p);
                 WireUpLists();
             }
+        }
+
+        private void createNewTeamLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            CreateTeamForm createTeamForm = new CreateTeamForm(this);
+            createTeamForm.Show();
+        }
+
+        public void TeamComplete(TeamModel team)
+        {
+            availableTeams.Add(team);
+            WireUpLists();
         }
     }
 }

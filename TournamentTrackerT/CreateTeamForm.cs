@@ -16,13 +16,15 @@ namespace TournamentTrackerT
     {
         private List<PersonModel> availableTeamMembers = GlobalConfig.connection.GetPerson_All();
         private List<PersonModel> selectedTeamMembers = new List<PersonModel>();
-        public CreateTeamForm()
+        ITeamRequester callingForm;
+        public CreateTeamForm(ITeamRequester caller)
         {
             InitializeComponent();
 
             //CreateSampleData();
 
             WireUpLists();
+            callingForm = caller;
         }
 
         void WireUpLists()
@@ -51,7 +53,10 @@ namespace TournamentTrackerT
             teamModel.TeamName = teamNameValue.Text;
             teamModel.TeamMembers = selectedTeamMembers;
 
-            teamModel = GlobalConfig.connection.CreateTeam(teamModel);
+            GlobalConfig.connection.CreateTeam(teamModel);
+
+            callingForm.TeamComplete(teamModel);
+            this.Close();
             //TODO: If we aren't closing this form after creation then reset it.
         }
 
