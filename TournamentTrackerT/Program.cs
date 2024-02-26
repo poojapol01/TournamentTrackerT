@@ -21,7 +21,7 @@ namespace TournamentTrackerT
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Initialize the database connection
-            GlobalConfig.InitializeConnections(DatabaseType.TextFile);
+            GlobalConfig.InitializeConnections(DatabaseType.Sql);
             Application.Run(new CreateTournamentForm());
         }
     }

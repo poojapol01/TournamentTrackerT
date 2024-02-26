@@ -25,7 +25,29 @@ namespace TournamentTrackerT
         }
         private void createTournamentButton_Click(object sender, EventArgs e)
         {
+            decimal fee = 0;
 
+            bool acceptableFee = decimal.TryParse(entryFeeValue.Text, out fee);
+
+            if (!acceptableFee)
+            {
+                MessageBox.Show("Enter a Valid Fee Value", "Invalid Fee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //Create Tournamnet Model 
+            TournamentModel tm = new TournamentModel();
+            tm.TournamentName = tournamentNameValue.Text;
+            tm.EntryFee = fee;
+            tm.Prizes = selectedPrizes;
+            tm.EnteredTeam = selectedTeams;
+            // Wire our Matchups
+
+            // Create Tournament Entry
+            // Create all of the Prizes Entry
+            // Create all of Team Entries
+            GlobalConfig.connection.CreateTournament(tm);
+            this.Close();
         }
 
         private void WireUpLists()
